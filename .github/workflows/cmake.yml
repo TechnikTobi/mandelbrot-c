@@ -86,8 +86,8 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            ubuntu-latest.zip
-            macos-latest.zip
+            ubuntu-latest/ubuntu-latest.zip
+            macos-latest/macos-latest.zip
 #            ubuntu-latest-release.zip
 #            macos-latest-release.zip
 #            windows-latest-release
