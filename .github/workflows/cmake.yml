@@ -1,8 +1,8 @@
 name: CMake
 
 on:
-  push:
-    branches: [ "main" ]
+#  push:
+#    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
     types: ["closed"]
@@ -40,14 +40,16 @@ jobs:
           mkdir ${{ matrix.os }}-release
           cp build/Mandelbrot* ${{ matrix.os }}-release/
       
-#      - name: ZIP Artifact
-#        run: |
-#          zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+      - name: ZIP Artifact
+        run: |
+          zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+        if: ${{ matrix.os != "windows-latest" }}
           
       - name: ZIP Artifact
         uses: montudor/action-zip@v1
         with:
           args: zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+        if: ${{ matrix.os == "windows-latest" }}
       
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
