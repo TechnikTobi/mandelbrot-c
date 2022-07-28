@@ -38,10 +38,19 @@ jobs:
       - name: List stuff
         run: ls -R
 
-      - name: Create Artifact
+
+      - name: Create Artifact (non-windows)
         run: |
           mkdir ${{ matrix.os }}-release
           cp build/Mandelbrot* ${{ matrix.os }}-release/
+        if: matrix.os != 'windows-latest'
+          
+      - name: Create Artifact (windows)
+        run: |
+          mkdir ${{ matrix.os }}-release
+          cp build/Release/Mandelbrot.exe ${{ matrix.os }}-release/
+        if: matrix.os == 'windows-latest'
+      
       
       - name: ZIP Artifact (non-windows)
         run: |
@@ -52,6 +61,7 @@ jobs:
         run: |
           7z a "${{ matrix.os }}.zip" "${{ matrix.os }}-release/"
         if: matrix.os == 'windows-latest'
+      
       
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
