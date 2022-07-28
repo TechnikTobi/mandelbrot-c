@@ -43,13 +43,13 @@ jobs:
       - name: ZIP Artifact
         run: |
           zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
-        if: ${{ matrix.os != "windows-latest" }}
+        if: matrix.os != 'windows-latest'
           
       - name: ZIP Artifact
         uses: montudor/action-zip@v1
         with:
           args: zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
-        if: ${{ matrix.os == "windows-latest" }}
+        if: matrix.os == 'windows-latest'
       
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
