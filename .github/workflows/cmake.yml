@@ -14,7 +14,7 @@ env:
 
 jobs:
 
-  release_v1:
+  build_and_publish:
     
     strategy:
       matrix:
@@ -44,9 +44,32 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
         with:
+          retention-days: 1
           name: ${{ matrix.os }}-release
           path: ${{ matrix.os }}-release
           
+#      - name: Create Release
+#        uses: "marvinpinto/action-automatic-releases@latest"
+#        with:
+#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#          automatic_release_tag: "latest"
+#          prerelease: true
+#          title: "Development Build"
+#          files: |
+#            build/Mandelbrot*
+
+  release:
+    name: "Prelease"
+    needs: build_and_publish
+    runs-on: ubuntu-latest
+    steps:
+      # We don't need the repo, grab all artifacts from the build stage
+      # The plugin puts each artifact in a folder of `artifactname`
+      - uses: actions/download-artifact@v2
+      
+      - name: Display fetched artifacts
+        run: ls -R
+      
       - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -55,4 +78,6 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            build/Mandelbrot*
+            ubuntu-latest-release
+            macos-latest-release
+#            windows-latest-release
