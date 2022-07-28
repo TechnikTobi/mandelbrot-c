@@ -40,9 +40,14 @@ jobs:
           mkdir ${{ matrix.os }}-release
           cp build/Mandelbrot* ${{ matrix.os }}-release/
       
+#      - name: ZIP Artifact
+#        run: |
+#          zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+          
       - name: ZIP Artifact
-        run: |
-          zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
       
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
