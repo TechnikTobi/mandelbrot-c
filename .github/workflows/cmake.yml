@@ -41,12 +41,16 @@ jobs:
           mkdir ${{ matrix.os }}-release
           cp build/Mandelbrot* ${{ matrix.os }}-release/
       
+      - name: ZIP Artifact
+        run: |
+          zip -r ${{ matrix.os }}.zip ${{ matrix.os }}-release/
+      
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
         with:
           retention-days: 1
-          name: ${{ matrix.os }}-release
-          path: ${{ matrix.os }}-release
+          name: ${{ matrix.os }}
+          path: ${{ matrix.os }}.zip
           
 #      - name: Create Release
 #        uses: "marvinpinto/action-automatic-releases@latest"
@@ -67,16 +71,12 @@ jobs:
       # The plugin puts each artifact in a folder of `artifactname`
       - uses: actions/download-artifact@v2
       
-      - name: Install ZIP
-        run: |
-          sudo apt-get install zip gzip tar
-      
       - name: Display fetched artifacts
         run: ls -R
         
-      - name: ZIP fetched artifacts
-        run: |
-          for i in */; do zip -r "${i%/}.zip" "$i"; done
+#      - name: ZIP fetched artifacts
+#        run: |
+#          for i in */; do zip -r "${i%/}.zip" "$i"; done
       
       - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -86,6 +86,8 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            ubuntu-latest-release.zip
-            macos-latest-release.zip
+            ubuntu-latest.zip
+            macos-latest.zip
+#            ubuntu-latest-release.zip
+#            macos-latest-release.zip
 #            windows-latest-release
