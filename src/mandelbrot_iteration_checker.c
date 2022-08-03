@@ -1,12 +1,28 @@
+#include <complex.h>
+
 #include "mandelbrot_iteration_checker.h"
 
-int iteration_checker(
+#define SQR_THRESHOLD 4
+
+long mandelbrot_iteration_checker(
 	long double x,
 	long double y,
-	long double c_real,
-	long double c_imag,
 	long iterations
 )
 {
-	return 138;
+	long double complex z = 0.0 + 0.0*I;
+	long double complex c = x + y*I;
+
+	long iteration_counter = 0;
+
+	while(
+		creal(z) * creal(z) + cimag(z) * cimag(z) <= SQR_THRESHOLD &&
+		iteration_counter < iterations
+	)
+	{
+		z = z*z + c;
+		iteration_counter++;
+	}
+
+	return iteration_counter;
 }
