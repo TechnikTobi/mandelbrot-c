@@ -3,10 +3,12 @@
 
 void
 get_arguments(
-	int argc,
-	char **argv,
+	int *argc,
+	char ***argv,
 	int *width,
 	int *height,
+	double *x_mid,
+	double *y_mid,
 	double *zoom,
 	long *iterations
 );
