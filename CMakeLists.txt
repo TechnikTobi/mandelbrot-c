@@ -10,9 +10,11 @@ message(${CMAKE_C_FLAGS})
 
 set(SOURCES
 	src/mandelbrot_iteration_checker.c 
+	src/generator.c
 	src/cli.c
 	src/main.c
 	src/mandelbrot_iteration_checker.h
+	src/generator.h
 	src/cli.h
 )
 

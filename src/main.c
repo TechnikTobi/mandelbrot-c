@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "cli.h"
-#include "mandelbrot_iteration_checker.h"
+#include "generator.h"
 
 int
 main(
@@ -10,6 +11,7 @@ main(
 )
 {
 	
+	// Define parameters
 	int width = 200;
 	int height = 100;
 	double x_mid = 0.0;
@@ -17,6 +19,7 @@ main(
 	double zoom = 1.0;
 	long iterations = 100;
 
+	// Get user input from CLI
 	get_arguments(
 		&argc, 
 		&argv, 
@@ -28,12 +31,41 @@ main(
 		&iterations
 	);
 
-	printf("%d\n", width);
-	printf("%ld\n", iterations);
+	// Print the values that are going to be used
+	printf("Width:      %d\n", width);
+	printf("Height:     %d\n", height);
+	printf("X-Mid:      %f\n", x_mid);
+	printf("Y-Mid:      %f\n", y_mid);
+	printf("Zoom:       %f\n", zoom);
+	printf("Iterations: %ld\n", iterations);
 
-	long test = mandelbrot_iteration_checker(0, 0, 0);
+	// Generate raw fractal data
+	long* raw_data = generate_raw_data(
+		width,
+		height,
+		x_mid,
+		y_mid,
+		zoom,
+		iterations
+	);
 
-	printf("%ld\n", test);
+	// CLI output for testing purposes
+	for(int j = 0; j < height; j++)
+	{
+		for(int i = 0; i < width; i++)
+		{
+			if(raw_data[j*width + i] > iterations/2)
+			{
+				printf("#");
+			}else{
+				printf(" ");
+			}
+		}
+		printf("\n");
+	}
+
+	// Freeing data
+	free(raw_data);
 
 	return 0;
 }
