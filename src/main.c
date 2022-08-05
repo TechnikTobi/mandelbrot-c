@@ -65,12 +65,12 @@ main(
 		printf("\n");
 	}
 
-	int* rgb_data = map_raw_to_rgb(
+	unsigned char* rgb_data = map_raw_to_rgb(
 		width,
 		height,
 		raw_data,
 		iterations,
-		(e_color_mode)0
+		(e_color_mode)1
 	);
 
 	// Freeing data

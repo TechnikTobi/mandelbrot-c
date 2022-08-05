@@ -8,7 +8,7 @@ typedef enum
 	BW
 }e_color_mode;
 
-int*
+unsigned char*
 map_raw_to_rgb(
 	int width,
 	int height,
@@ -17,5 +17,12 @@ map_raw_to_rgb(
 	e_color_mode mode
 );
 
+void
+color_mode_blue(
+	long* raw_data,
+	unsigned long raw_data_size,
+	long iterations,
+	unsigned char* rgb_data
+);
 
 #endif
