@@ -3,6 +3,7 @@
 
 #include "cli.h"
 #include "generator.h"
+#include "color_map.h"
 
 int
 main(
@@ -64,8 +65,17 @@ main(
 		printf("\n");
 	}
 
+	int* rgb_data = map_raw_to_rgb(
+		width,
+		height,
+		raw_data,
+		iterations,
+		(e_color_mode)0
+	);
+
 	// Freeing data
 	free(raw_data);
+	free(rgb_data);
 
 	return 0;
 }

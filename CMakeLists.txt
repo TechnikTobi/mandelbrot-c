@@ -12,10 +12,12 @@ set(SOURCES
 	src/mandelbrot_iteration_checker.c 
 	src/generator.c
 	src/cli.c
+	src/color_map.c
 	src/main.c
 	src/mandelbrot_iteration_checker.h
 	src/generator.h
 	src/cli.h
+	src/color_map.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
