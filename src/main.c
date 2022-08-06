@@ -4,6 +4,7 @@
 #include "cli.h"
 #include "generator.h"
 #include "color_map.h"
+#include "png_writer.h"
 
 int
 main(
@@ -51,6 +52,7 @@ main(
 	);
 
 	// CLI output for testing purposes
+	/*
 	for(int j = 0; j < height; j++)
 	{
 		for(int i = 0; i < width; i++)
@@ -64,7 +66,9 @@ main(
 		}
 		printf("\n");
 	}
+	*/
 
+	// Map the raw data to RGB color data
 	unsigned char* rgb_data = map_raw_to_rgb(
 		width,
 		height,
@@ -73,7 +77,10 @@ main(
 		(e_color_mode)1
 	);
 
-	// Freeing data
+	// Create a PNG file using the RGB data
+	write_png(width, height, "test.png", rgb_data);
+
+	// Freeing the used memory
 	free(raw_data);
 	free(rgb_data);
 
