@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <omp.h>
 
 #include "mandelbrot_iteration_checker.h"
 
@@ -29,6 +30,7 @@ generate_raw_data(
 	long* raw_data = (long*) malloc(width * height * sizeof(long));
 
 	// Generate data
+	#pragma omp parallel
 	for(int y = 0; y < height; y++)
 	{
 		for(int x = 0; x < width; x++)
