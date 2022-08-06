@@ -31,4 +31,4 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC src/)
 
-target_link_libraries(${PROJECT_NAME} ${GLIB_LIBS} ${LIBPNG_LIBS})
+target_link_libraries(${PROJECT_NAME} ${GLIB_LIBS} ${LIBPNG_LIBS} "-lm")
