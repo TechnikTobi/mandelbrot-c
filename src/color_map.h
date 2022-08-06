@@ -1,6 +1,8 @@
 #ifndef COLOR_MAP_H
 #define COLOR_MAP_H
 
+#define COLOR_CHANNELS 3
+
 typedef enum
 {
 	DEFAULT,

@@ -4,8 +4,6 @@
 
 #include "color_map.h"
 
-#define COLOR_CHANNELS 3
-
 unsigned char*
 map_raw_to_rgb(
 	int width,
