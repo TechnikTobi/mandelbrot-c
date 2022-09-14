@@ -1,8 +1,8 @@
 name: CMake
 
 on:
-#  push:
-#    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
     types: ["closed"]
@@ -39,7 +39,7 @@ jobs:
         
       - shell: msys2 {0}
         run: |
-          pacman --noconfirm -S glib-2.0
+          pacman --noconfirm -S mingw-w64-x86_64-{toolchain,pkg-config,glib2}
         if: matrix.os == 'windows-latest'
 
 
