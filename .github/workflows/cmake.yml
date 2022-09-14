@@ -20,13 +20,20 @@ jobs:
       matrix:
         # Disabling Windows for now
         #os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [ubuntu-latest, macos-latest]
+        #os: [ubuntu-latest, macos-latest]
+        # Working only on Windows
+        os: [windows-latest]
     runs-on: ${{ matrix.os }}
     
     steps:
       
       # Check out the repository (basically downloads the source code)
       - uses: actions/checkout@v3
+      
+      - name: Install GLib on Windows
+        run: |
+          pacman -S mingw-w64-x86_64-glib2
+        if: matrix.os == 'windows-latest'
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -39,7 +46,7 @@ jobs:
 
       - name: List stuff
         run: ls -R
-
+        
 
       - name: Create Artifact (non-windows)
         run: |
@@ -91,6 +98,7 @@ jobs:
           prerelease: false
           title: "Development Build"
           files: |
-            ubuntu-latest/ubuntu-latest.zip
-            macos-latest/macos-latest.zip
+            windows-latest/windows-latest.zip
+          #  ubuntu-latest/ubuntu-latest.zip
+          #  macos-latest/macos-latest.zip
           # Disabling Windows: windows-latest/windows-latest.zip
