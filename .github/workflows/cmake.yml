@@ -47,6 +47,7 @@ jobs:
           msystem: mingw64
           update: true
           install: >-
+            mingw-w64-x86_64-gcc
             mingw-w64-x86_64-pkg-config
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-glib2
