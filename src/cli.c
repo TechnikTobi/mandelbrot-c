@@ -11,7 +11,8 @@ get_arguments(
 	double *x_mid,
 	double *y_mid,
 	double *zoom,
-	long *iterations
+	long *iterations,
+	char **output_file_name
 )
 {
 
@@ -19,6 +20,7 @@ get_arguments(
 	GOptionEntry entries[] = {
 
 		// Structure of an option entry
+		// See: https://api.gtkd.org/glib.c.types.GOptionEntry.html
 		/*
 		{
 			const(char)* longName,
@@ -85,16 +87,16 @@ get_arguments(
 			"The number of maximum iterations to use during image generation",
 			"100"
 		},
-/*
 		{
-			"output",
+			"output-file",
 			'o',
-			16,			// Flag for filename
+			48,			// Flag for filename
 			G_OPTION_ARG_FILENAME,	// Type: gchar*
-			"The name of the output file"
-			"file.png"
+			output_file_name,
+			"The name of the output image file",
+			"image.png"
 		},
-*/
+
 		{ NULL }
 	};
 

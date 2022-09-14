@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "cli.h"
 #include "generator.h"
 #include "color_map.h"
 #include "png_writer.h"
+
+#define MAX_FILENAME 255
 
 int
 main(
@@ -14,12 +17,13 @@ main(
 {
 	
 	// Define parameters
-	int width = 200;
-	int height = 100;
+	int width = 400;
+	int height = 400;
 	double x_mid = 0.0;
 	double y_mid = 0.0;
-	double zoom = 1.0;
+	double zoom = 0.5;
 	long iterations = 100;
+	char *output_file_name = NULL; 
 
 	// Get user input from CLI
 	get_arguments(
@@ -30,8 +34,16 @@ main(
 		&x_mid,
 		&y_mid,
 		&zoom, 
-		&iterations
+		&iterations,
+		&output_file_name
 	);
+
+	// Check if a file name was given. If not, use a default value
+	if(output_file_name == NULL)
+	{
+		output_file_name = (char*) malloc(MAX_FILENAME * sizeof(char));
+		strcpy(output_file_name, "image.png");
+	}
 
 	// Print the values that are going to be used
 	printf("Width:      %d\n", width);
@@ -40,6 +52,7 @@ main(
 	printf("Y-Mid:      %f\n", y_mid);
 	printf("Zoom:       %f\n", zoom);
 	printf("Iterations: %ld\n", iterations);
+	printf("Filename: %s\n", output_file_name);
 
 	// Generate raw fractal data
 	long* raw_data = generate_raw_data(
@@ -51,23 +64,6 @@ main(
 		iterations
 	);
 
-	// CLI output for testing purposes
-	/*
-	for(int j = 0; j < height; j++)
-	{
-		for(int i = 0; i < width; i++)
-		{
-			if(raw_data[j*width + i] > iterations/2)
-			{
-				printf("#");
-			}else{
-				printf(" ");
-			}
-		}
-		printf("\n");
-	}
-	*/
-
 	// Map the raw data to RGB color data
 	unsigned char* rgb_data = map_raw_to_rgb(
 		width,
@@ -78,11 +74,12 @@ main(
 	);
 
 	// Create a PNG file using the RGB data
-	write_png(width, height, "test.png", rgb_data);
+	write_png(width, height, output_file_name, rgb_data);
 
 	// Freeing the used memory
 	free(raw_data);
 	free(rgb_data);
+	if(output_file_name != NULL) free(output_file_name);
 
 	return 0;
 }

@@ -10,7 +10,8 @@ get_arguments(
 	double *x_mid,
 	double *y_mid,
 	double *zoom,
-	long *iterations
+	long *iterations,
+	char **output_file_name
 );
 
 #endif
