@@ -5,8 +5,8 @@ void
 write_png(
 	int width,
 	int height,
-	char* filename,
-	unsigned char* rgb_data
+	char *filename,
+	unsigned char *rgb_data
 );
 
 #endif
