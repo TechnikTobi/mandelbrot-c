@@ -7,7 +7,7 @@ find_package(OpenMP REQUIRED)
 
 pkg_search_module(PNG REQUIRED libpng)
 # pkg_search_module(GLIB REQUIRED glib-2.0)
-pkg_search_module(GLIB REQUIRED mingw-w64-x86_64-glib2)
+pkg_search_module(GLIB REQUIRED glib2)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Xpreprocessor -O3") 
 
