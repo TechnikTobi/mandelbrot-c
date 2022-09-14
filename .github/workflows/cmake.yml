@@ -32,16 +32,24 @@ jobs:
       
       # GLib on Windows stuff
       
-      - uses: msys2/setup-msys2@v2
+      # - uses: msys2/setup-msys2@v2
+      #  with:
+      #    msystem: MSYS
+      #  if: matrix.os == 'windows-latest' 
+      # - shell: msys2 {0}
+      #  run: |
+      #    pacman --noconfirm -S mingw-w64-x86_64-{toolchain,pkg-config,glib2}
+      #  if: matrix.os == 'windows-latest'
+      - name: Install GLib
+        if: matrix.os == 'windows-latest'
+        uses: msys2/setup-msys2@v2
         with:
-          msystem: MSYS
-        if: matrix.os == 'windows-latest'
-        
-      - shell: msys2 {0}
-        run: |
-          pacman --noconfirm -S mingw-w64-x86_64-{toolchain,pkg-config,glib2}
-        if: matrix.os == 'windows-latest'
-
+          path-type: inherit
+          update: true
+          install: >-
+            mingw64/mingw-w64-x86_64-pkg-config
+            mingw64/mingw-w64-x86_64-glib2
+            msys/make
 
 
 
