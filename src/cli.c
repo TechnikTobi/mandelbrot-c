@@ -57,7 +57,7 @@ get_arguments(
 			0,
 			G_OPTION_ARG_DOUBLE,
 			x_mid,
-			"The x part of the coordinate in the middle of the image",
+			"x-coordinate in the middle of the image",
 			"0.0"
 		},
 		{
@@ -66,7 +66,7 @@ get_arguments(
 			0,
 			G_OPTION_ARG_DOUBLE,
 			y_mid,
-			"The y part of the coordinate in the middle of the image",
+			"y-coordinate in the middle of the image",
 			"0.0"
 		},
 		{
@@ -84,14 +84,14 @@ get_arguments(
 			0,
 			G_OPTION_ARG_INT,
 			iterations,
-			"The number of maximum iterations to use during image generation",
+			"Number of max iterations to use for generation",
 			"100"
 		},
 		{
 			"output-file",
 			'o',
-			48,			// Flag for filename
-			G_OPTION_ARG_FILENAME,	// Type: gchar*
+			0,
+			G_OPTION_ARG_FILENAME,
 			output_file_name,
 			"The name of the output image file",
 			"image.png"
@@ -103,7 +103,7 @@ get_arguments(
 	GError *error = NULL;
 	GOptionContext *context;
 	
-	context = g_option_context_new("- create mandelbrot images");
+	context = g_option_context_new("- Create mandelbrot images");
 	g_option_context_add_main_entries(context, entries, NULL);
 
 	if(!g_option_context_parse(context, argc, argv, &error))
