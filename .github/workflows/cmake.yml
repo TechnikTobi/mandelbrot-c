@@ -18,11 +18,7 @@ jobs:
     
     strategy:
       matrix:
-        # Disabling Windows for now
-        #os: [ubuntu-latest, windows-latest, macos-latest]
-        #os: [ubuntu-latest, macos-latest]
-        # Working only on Windows
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     
     steps:
@@ -30,8 +26,8 @@ jobs:
       # Check out the repository (basically downloads the source code)
       - uses: actions/checkout@v3
       
-      # GLib on Windows stuff
-      - name: Install GLib
+      # Setup specific for Windows - don't forget to use the msys2 shell in other steps!
+      - name: Install MingW stuff
         if: matrix.os == 'windows-latest'
         uses: msys2/setup-msys2@v2
         with:
@@ -45,8 +41,6 @@ jobs:
             mingw-w64-x86_64-glib2
             mingw-w64-x86_64-libpng
             mingw-w64-x86_64-openmp
-
-
 
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -84,7 +78,6 @@ jobs:
         shell: msys2 {0}
         run: |
           mkdir ${{ matrix.os }}-release
-          ls -R
           cp build/Mandelbrot.exe ${{ matrix.os }}-release/
         if: matrix.os == 'windows-latest'
       
@@ -98,7 +91,6 @@ jobs:
       - name: ZIP Artifact (windows)
         shell: msys2 {0}
         run: |
-          ls -R
           7z a "${{ matrix.os }}.zip" "${{ matrix.os }}-release/"
         if: matrix.os == 'windows-latest'
       
@@ -111,11 +103,14 @@ jobs:
           name: ${{ matrix.os }}
           path: ${{ matrix.os }}.zip
 
+
+
   release:
-    name: "Prelease"
+    name: "Release"
     needs: build_and_publish
     runs-on: ubuntu-latest
     steps:
+    
       # We don't need the repo, grab all artifacts from the build stage
       - uses: actions/download-artifact@v2
       
@@ -128,9 +123,8 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: false
-          title: "Development Build"
+          title: "Latest (development) Build"
           files: |
+            ubuntu-latest/ubuntu-latest.zip
+            macos-latest/macos-latest.zip
             windows-latest/windows-latest.zip
-          #  ubuntu-latest/ubuntu-latest.zip
-          #  macos-latest/macos-latest.zip
-          # Disabling Windows: windows-latest/windows-latest.zip
