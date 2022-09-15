@@ -85,7 +85,7 @@ jobs:
         run: |
           mkdir ${{ matrix.os }}-release
           ls -R
-          cp build/Release/Mandelbrot.exe ${{ matrix.os }}-release/
+          cp build/Mandelbrot.exe ${{ matrix.os }}-release/
         if: matrix.os == 'windows-latest'
       
       
