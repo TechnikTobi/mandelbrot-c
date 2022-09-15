@@ -68,7 +68,8 @@ jobs:
         shell: msys2 {0}
         run: |
           ls -R
-          cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          mkdir build
+          cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
 
         # Build your program with the given configuration
@@ -79,7 +80,8 @@ jobs:
       - name: Build (windows)
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: |
+          cmake --build build --config ${{env.BUILD_TYPE}}
 
       - name: List stuff
         run: ls -R
