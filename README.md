@@ -1,5 +1,5 @@
 # mandelbrot-c
-Implementing a Mandelbrot Image Generator (In C) (Again)
+Implementing a Mandelbrot Image Generator (In C) (Again) - Also see [the rust version of this project](https://github.com/TechnikTobi/mandelbrot-rust/tree/main)!
 
 ![example workflow](https://github.com/TechnikTobi/mandelbrot-c/actions/workflows/cmake.yml/badge.svg)
 
