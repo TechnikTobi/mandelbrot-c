@@ -66,6 +66,7 @@ jobs:
       - name: OpenMP stuff for macOS
         if: matrix.os == 'macos-latest'
         run: |
+          brew install libomp
           export CC=/usr/local/opt/llvm/bin/clang
           export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/llvm/lib"
