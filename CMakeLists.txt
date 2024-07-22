@@ -4,7 +4,7 @@ project(Mandelbrot LANGUAGES C)
 
 
 # See: https://stackoverflow.com/a/55094428
-# if(APPLE)
+if(APPLE)
 # 	if(CMAKE_C_COMPILER_ID MATCHES "Clang")
 # 		set(OpenMP_C "${CMAKE_C_COMPILER}" CACHE STRING "" FORCE)
 # 		set(OpenMP_C_FLAGS "-fopenmp=libomp -Wno-unused-command-line-argument" CACHE STRING "" FORCE)
@@ -21,7 +21,15 @@ project(Mandelbrot LANGUAGES C)
 # 		set(OpenMP_libgomp_LIBRARY ${OpenMP_CXX_LIB_NAMES} CACHE STRING "" FORCE)
 # 		set(OpenMP_libiomp5_LIBRARY ${OpenMP_CXX_LIB_NAMES} CACHE STRING "" FORCE)
 # 	endif()
-# endif()
+	message(STATUS "set compipler")
+	set(CMAKE_C_COMPILER "/usr/local/Cellar/llvm/5.0.1/bin/clang")
+	set(CMAKE_CXX_COMPILER "/usr/local/Cellar/llvm/5.0.1/bin/clang++")
+	set(OPENMP_LIBRARIES "/usr/local/Cellar/llvm/5.0.1/lib")
+	set(OPENMP_INCLUDES "/usr/local/Cellar/llvm/5.0.1/include")
+
+	set(OPENMP_LIBRARIES "/usr/local/opt/llvm/lib")
+	link_directories(${OPENMP_LIBRARIES})
+endif()
 
 find_package(PkgConfig REQUIRED)
 find_package(OpenMP REQUIRED)
